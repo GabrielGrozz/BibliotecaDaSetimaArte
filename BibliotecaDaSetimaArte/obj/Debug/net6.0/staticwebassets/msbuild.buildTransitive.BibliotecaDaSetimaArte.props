@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\BibliotecaDaSetimaArte.props" />
+</Project>

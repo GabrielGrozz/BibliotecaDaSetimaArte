@@ -1,14 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BibliotecaDaSetimaArte.Context;
+using BibliotecaDaSetimaArte.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaDaSetimaArte.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
-    public class MoviesController : Controller
+    [Route("[controller]/{action}")]
+    public class MoviesController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+        public MoviesController(AppDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        [HttpGet]
+        public IEnumerable<Movie> Get()
+        {
+            var movie = _context.GetType
+
         }
     }
 }

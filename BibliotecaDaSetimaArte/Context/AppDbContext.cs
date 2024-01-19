@@ -7,7 +7,7 @@ namespace BibliotecaDaSetimaArte.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        DbSet<Movie> Movies { get; set; }
-        DbSet<Category> Categories { get; set; }
+        DbSet<Movie> movies { get; set; }
+        DbSet<Category> categories { get; set; }
     }
 }

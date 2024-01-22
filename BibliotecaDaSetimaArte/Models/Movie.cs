@@ -21,7 +21,6 @@ namespace BibliotecaDaSetimaArte.Models
 
         [Required(ErrorMessage = "Informe a data de lançamento do filme")]
         [Display(Name = "Data de lançamento")]
-        [StringLength(4)]
         public int? ReleaseDate { get; set; }
 
         [Required(ErrorMessage = "Informe a URL da imagem do filme")]

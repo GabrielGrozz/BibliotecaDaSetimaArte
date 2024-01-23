@@ -16,9 +16,9 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Movie>> Get()
+        public async Task<ActionResult<IEnumerable<Movie>>> Get()
         {
-            var movies = _context.Movies.ToList();
+            var movies = await _context.Movies.ToListAsync();
 
             if (movies is null)
             {
@@ -28,10 +28,18 @@ namespace BibliotecaDaSetimaArte.Controllers
             return movies;
         }
 
-        [HttpGet("{id:int}", Name = "GetMovie")]
-        public ActionResult<Movie> Get(int id)
+        //rota de teste de restrição 
+        [HttpGet("especifico/{id:int:min(5)}")]
+        public async Task<Movie> Get2(int id)
         {
-            var movie = _context.Movies.FirstOrDefault(e => e.MovieId == id);
+            var movie = await _context.Movies.FirstOrDefaultAsync(e => e.MovieId == 2);
+            return movie;
+        }
+
+        [HttpGet("{id:int}", Name = "GetMovie")]
+        public async Task<ActionResult<Movie>> Get(int id)
+        {
+            var movie = await _context.Movies.FirstOrDefaultAsync(e => e.MovieId == id);
 
             if (movie is null)
             {

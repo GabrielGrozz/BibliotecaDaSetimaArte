@@ -1,4 +1,7 @@
 using BibliotecaDaSetimaArte.Context;
+using BibliotecaDaSetimaArte.Extensions;
+using BibliotecaDaSetimaArte.Filters;
+using BibliotecaDaSetimaArte.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,9 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ApiLogginFilter>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddTransient<IMyService, MyService>();
 
 String MySqlConnectionString = builder.Configuration.GetConnectionString("ConnectionStringDefault");
 
@@ -25,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
 

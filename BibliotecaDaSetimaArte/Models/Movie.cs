@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BibliotecaDaSetimaArte.Validations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BibliotecaDaSetimaArte.Models
@@ -12,6 +13,7 @@ namespace BibliotecaDaSetimaArte.Models
         [Required(ErrorMessage = "Informe o nome do filme")]
         [Display(Name = "Nome")]
         [StringLength(128)]
+        [FirstLetter]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Informe o sinopse do filme")]

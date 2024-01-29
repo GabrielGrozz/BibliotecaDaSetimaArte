@@ -1,5 +1,7 @@
 ﻿using BibliotecaDaSetimaArte.Context;
+using BibliotecaDaSetimaArte.Filters;
 using BibliotecaDaSetimaArte.Models;
+using BibliotecaDaSetimaArte.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,7 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLogginFilter))]
         public async Task<ActionResult<IEnumerable<Movie>>> Get()
         {
             var movies = await _context.Movies.ToListAsync();
@@ -34,6 +37,14 @@ namespace BibliotecaDaSetimaArte.Controllers
         {
             var movie = await _context.Movies.FirstOrDefaultAsync(e => e.MovieId == 2);
             return movie;
+        }
+
+        [HttpGet("greeting/{name}")]
+        public ActionResult<string> Get3([FromServices] IMyService myService, string name)
+        {
+
+            throw new Exception("ERRO INADIMPLENTE DO SERVIDOR");
+            return myService.Greeting(name);
         }
 
         [HttpGet("{id:int}", Name = "GetMovie")]

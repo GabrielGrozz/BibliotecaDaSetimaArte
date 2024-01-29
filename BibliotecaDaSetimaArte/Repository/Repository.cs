@@ -33,6 +33,7 @@ namespace BibliotecaDaSetimaArte.Repository
 
         public void Update(T entity)
         {
+            _context.Entry(entity).State = EntityState.Modified;
             _context.Set<T>().Update(entity);
         }
     }

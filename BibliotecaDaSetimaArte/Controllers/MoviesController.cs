@@ -12,9 +12,11 @@ namespace BibliotecaDaSetimaArte.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public MoviesController(AppDbContext context)
+        private readonly ILogger _logger;
+        public MoviesController(AppDbContext context, ILogger<MoviesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -42,9 +44,9 @@ namespace BibliotecaDaSetimaArte.Controllers
         [HttpGet("greeting/{name}")]
         public ActionResult<string> Get3([FromServices] IMyService myService, string name)
         {
-
-            throw new Exception("ERRO INADIMPLENTE DO SERVIDOR");
+            _logger.LogInformation("################################### -- [GET GREETING] -- #################################");
             return myService.Greeting(name);
+
         }
 
         [HttpGet("{id:int}", Name = "GetMovie")]

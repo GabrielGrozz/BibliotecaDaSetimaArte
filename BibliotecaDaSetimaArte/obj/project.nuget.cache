@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "w/l5SihGFks5r97/I/kJYW9UZI6MVk5LdicUwLJ6ROZsPYuGgidikVSxZIoM7a/6wXVwBcxjiIH+SCZtwjkeAw==",
+  "dgSpecHash": "2sy0h5pZYslP46yH29y0R3LHgx1stEkyEngdbCUISObHjdIxYmRy4oxdcuKGfUJMiOnsTzfhY3NkR/TQVMrggg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Usuário\\source\\repos\\2024\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Usuário\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Usuário\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Usuário\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Usuário\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Usuário\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.26\\microsoft.entityframeworkcore.6.0.26.nupkg.sha512",
     "C:\\Users\\Usuário\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.26\\microsoft.entityframeworkcore.abstractions.6.0.26.nupkg.sha512",
     "C:\\Users\\Usuário\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.26\\microsoft.entityframeworkcore.analyzers.6.0.26.nupkg.sha512",

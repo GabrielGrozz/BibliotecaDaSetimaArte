@@ -20,7 +20,7 @@ namespace BibliotecaDaSetimaArte.Controllers
             _logger = logger;
         }
 
-        [HttpGet("year")]
+        [HttpGet("year/{date:int}")]
         public ActionResult<IEnumerable<Movie>> GetByYear(int date)
         {
             var movies = _uof.MovieRepository.GetByYear(date).ToList();
@@ -49,13 +49,13 @@ namespace BibliotecaDaSetimaArte.Controllers
         //    return movie;
         //}
 
-        [HttpGet("greeting/{name}")]
-        public ActionResult<string> Get3([FromServices] IMyService myService, string name)
-        {
-            _logger.LogInformation("################################### -- [GET GREETING] -- #################################");
-            return myService.Greeting(name);
+        //[HttpGet("greeting/{name}")]
+        //public ActionResult<string> Get3([FromServices] IMyService myService, string name)
+        //{
+        //    _logger.LogInformation("################################### -- [GET GREETING] -- #################################");
+        //    return myService.Greeting(name);
 
-        }
+        //}
 
         [HttpGet("{id:int}", Name = "GetMovie")]
         public ActionResult<Movie> Get(int id)

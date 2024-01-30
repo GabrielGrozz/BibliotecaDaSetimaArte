@@ -12,6 +12,7 @@ namespace BibliotecaDaSetimaArte.Repository
         {
             _context = context;
         }
+
         public IQueryable<T> Get()
         {
             return _context.Set<T>().AsNoTracking();

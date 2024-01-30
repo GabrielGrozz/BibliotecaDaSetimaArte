@@ -6,6 +6,7 @@ namespace BibliotecaDaSetimaArte.Repository
 {
     public class MovieRepository : Repository<Movie>, IMovieRepository
     {
+
         public MovieRepository(AppDbContext context) : base(context) { }
 
         public IEnumerable<Movie> GetByYear()

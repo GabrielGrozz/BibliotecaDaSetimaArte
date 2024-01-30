@@ -1,6 +1,8 @@
 using BibliotecaDaSetimaArte.Context;
 using BibliotecaDaSetimaArte.Extensions;
 using BibliotecaDaSetimaArte.Filters;
+using BibliotecaDaSetimaArte.Repository;
+using BibliotecaDaSetimaArte.Repository.Interfaces;
 using BibliotecaDaSetimaArte.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +17,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IMyService, MyService>();
 
-String MySqlConnectionString = builder.Configuration.GetConnectionString("ConnectionStringDefault");
-
+string MySqlConnectionString = builder.Configuration.GetConnectionString("ConnectionStringDefault");
 builder.Services.AddDbContext<AppDbContext>(op =>
 {
     op.UseMySql(MySqlConnectionString, ServerVersion.AutoDetect(MySqlConnectionString));
 });
+
+builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 
 var app = builder.Build();
 

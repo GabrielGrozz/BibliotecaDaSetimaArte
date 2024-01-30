@@ -1,6 +1,7 @@
 ﻿using BibliotecaDaSetimaArte.Context;
 using BibliotecaDaSetimaArte.Filters;
 using BibliotecaDaSetimaArte.Models;
+using BibliotecaDaSetimaArte.Repository.Interfaces;
 using BibliotecaDaSetimaArte.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +12,26 @@ namespace BibliotecaDaSetimaArte.Controllers
     [Route("[controller]")]
     public class MoviesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IUnityOfWork _uof;
         private readonly ILogger _logger;
-        public MoviesController(AppDbContext context, ILogger<MoviesController> logger)
+        public MoviesController(IUnityOfWork context, ILogger<MoviesController> logger)
         {
-            _context = context;
+            _uof = context;
             _logger = logger;
+        }
+
+        [HttpGet("year")]
+        public ActionResult<IEnumerable<Movie>> GetByYear(int date)
+        {
+            var movies = _uof.MovieRepository.GetByYear(date).ToList();
+            return movies;            
         }
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLogginFilter))]
-        public async Task<ActionResult<IEnumerable<Movie>>> Get()
+        public ActionResult<IEnumerable<Movie>> Get()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies = _uof.MovieRepository.Get().ToList();
 
             if (movies is null)
             {
@@ -34,12 +42,12 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         //rota de teste de restrição 
-        [HttpGet("especifico/{id:int:min(5)}")]
-        public async Task<Movie> Get2(int id)
-        {
-            var movie = await _context.Movies.FirstOrDefaultAsync(e => e.MovieId == 2);
-            return movie;
-        }
+        //[HttpGet("especifico/{id:int:min(5)}")]
+        //public Movie Get2(int id)
+        //{
+        //    var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == 2);
+        //    return movie;
+        //}
 
         [HttpGet("greeting/{name}")]
         public ActionResult<string> Get3([FromServices] IMyService myService, string name)
@@ -50,9 +58,9 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         [HttpGet("{id:int}", Name = "GetMovie")]
-        public async Task<ActionResult<Movie>> Get(int id)
+        public ActionResult<Movie> Get(int id)
         {
-            var movie = await _context.Movies.FirstOrDefaultAsync(e => e.MovieId == id);
+            var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
 
             if (movie is null)
             {
@@ -65,8 +73,8 @@ namespace BibliotecaDaSetimaArte.Controllers
         [HttpPost]
         public ActionResult Post(Movie movieData)
         {
-            _context.Movies.Add(movieData);
-            _context.SaveChanges();
+            _uof.MovieRepository.Add(movieData);
+            _uof.commit();
 
             return new CreatedAtRouteResult("GetMovie", new { id = movieData.MovieId }, movieData);
         }
@@ -79,8 +87,8 @@ namespace BibliotecaDaSetimaArte.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(movieData).State = EntityState.Modified;
-            _context.SaveChanges();
+            _uof.MovieRepository.Update(movieData);
+            _uof.commit();
 
             return Ok(); 
         }
@@ -88,18 +96,17 @@ namespace BibliotecaDaSetimaArte.Controllers
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
-            var movie = _context.Movies.FirstOrDefault(e => e.MovieId == id);
+            var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
 
             if (movie is null)
             {
                 return NotFound();
             }
 
-            _context.Movies.Remove(movie);
-            _context.SaveChanges();
+            _uof.MovieRepository.Delete(movie);
+            _uof.commit();
 
             return Ok();
-
         }
     }
 }

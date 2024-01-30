@@ -4,6 +4,6 @@ namespace BibliotecaDaSetimaArte.Repository.Interfaces
 {
     public interface IMovieRepository : IRepository<Movie>
     {
-        IEnumerable<Movie> GetByYear();
+        IEnumerable<Movie> GetByYear(int value);
     }
 }

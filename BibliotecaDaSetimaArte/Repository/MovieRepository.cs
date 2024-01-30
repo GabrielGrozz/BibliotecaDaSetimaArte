@@ -9,9 +9,9 @@ namespace BibliotecaDaSetimaArte.Repository
 
         public MovieRepository(AppDbContext context) : base(context) { }
 
-        public IEnumerable<Movie> GetByYear()
+        public IEnumerable<Movie> GetByYear(int date)
         {
-            return Get().OrderBy(e => e.ReleaseDate).ToList();
+            return Get().Where(e => e.ReleaseDate == date);
         }
     }
 }

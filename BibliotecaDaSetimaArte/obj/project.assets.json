@@ -1349,23 +1349,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuário\\.nuget\\packages\\": {},
+    "C:\\Users\\ESTUDOS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuário\\source\\repos\\2024\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte.csproj",
+      "projectUniqueName": "D:\\dev\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte.csproj",
       "projectName": "BibliotecaDaSetimaArte",
-      "projectPath": "C:\\Users\\Usuário\\source\\repos\\2024\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte.csproj",
-      "packagesPath": "C:\\Users\\Usuário\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuário\\source\\repos\\2024\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\obj\\",
+      "projectPath": "D:\\dev\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte.csproj",
+      "packagesPath": "C:\\Users\\ESTUDOS\\.nuget\\packages\\",
+      "outputPath": "D:\\dev\\BibliotecaDaSetimaArte\\BibliotecaDaSetimaArte\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Usuário\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ESTUDOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1435,7 +1435,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

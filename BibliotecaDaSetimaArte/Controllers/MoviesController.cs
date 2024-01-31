@@ -1,4 +1,6 @@
-﻿using BibliotecaDaSetimaArte.Context;
+﻿using AutoMapper;
+using BibliotecaDaSetimaArte.Context;
+using BibliotecaDaSetimaArte.DTOs;
 using BibliotecaDaSetimaArte.Filters;
 using BibliotecaDaSetimaArte.Models;
 using BibliotecaDaSetimaArte.Repository.Interfaces;
@@ -13,32 +15,36 @@ namespace BibliotecaDaSetimaArte.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IUnityOfWork _uof;
+        private readonly IMapper _mapper;
         private readonly ILogger _logger;
-        public MoviesController(IUnityOfWork context, ILogger<MoviesController> logger)
+        public MoviesController(IUnityOfWork context, ILogger<MoviesController> logger, IMapper mapper)
         {
             _uof = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet("year/{date:int}")]
-        public ActionResult<IEnumerable<Movie>> GetByYear(int date)
+        public ActionResult<IEnumerable<MovieDTO>> GetByYear(int date)
         {
             var movies = _uof.MovieRepository.GetByYear(date).ToList();
-            return movies;            
+            var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
+            return moviesDTO;            
         }
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLogginFilter))]
-        public ActionResult<IEnumerable<Movie>> Get()
+        public ActionResult<IEnumerable<MovieDTO>> Get()
         {
             var movies = _uof.MovieRepository.Get().ToList();
+            var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
 
-            if (movies is null)
+            if (moviesDTO is null)
             {
                 return NotFound();
             }
 
-            return movies;
+            return moviesDTO;
         }
 
         //rota de teste de restrição 
@@ -58,43 +64,52 @@ namespace BibliotecaDaSetimaArte.Controllers
         //}
 
         [HttpGet("{id:int}", Name = "GetMovie")]
-        public ActionResult<Movie> Get(int id)
+        public ActionResult<MovieDTO> Get(int id)
         {
             var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
+            var movieDTO = _mapper.Map<MovieDTO>(movie);
 
-            if (movie is null)
+            if (movieDTO is null)
             {
                 return NotFound();
             }
 
-            return movie;
+            return movieDTO;
         }
 
         [HttpPost]
-        public ActionResult Post(Movie movieData)
+        public ActionResult Post([FromBody] MovieDTO movieData)
         {
-            _uof.MovieRepository.Add(movieData);
+
+            var movie = _mapper.Map<Movie>(movieData);
+
+            _uof.MovieRepository.Add(movie);
             _uof.commit();
 
-            return new CreatedAtRouteResult("GetMovie", new { id = movieData.MovieId }, movieData);
+            var movieDTO = _mapper.Map<Movie>(movieData);
+
+            return new CreatedAtRouteResult("GetMovie", new { id = movieData.MovieId }, movieDTO);
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult Put(int id, Movie movieData) 
+        public ActionResult Put(int id, MovieDTO movieData) 
         {
+
             if (id != movieData.MovieId)
             {
                 return BadRequest();
             }
 
-            _uof.MovieRepository.Update(movieData);
+            var movie = _mapper.Map<Movie>(movieData);
+
+            _uof.MovieRepository.Update(movie);
             _uof.commit();
 
             return Ok(); 
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
+        public ActionResult<MovieDTO> Delete(int id)
         {
             var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
 
@@ -106,7 +121,9 @@ namespace BibliotecaDaSetimaArte.Controllers
             _uof.MovieRepository.Delete(movie);
             _uof.commit();
 
-            return Ok();
+            var movieDTO = _mapper.Map<MovieDTO>(movie);
+
+            return movieDTO;
         }
     }
 }

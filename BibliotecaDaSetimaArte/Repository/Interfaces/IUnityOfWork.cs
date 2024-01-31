@@ -7,6 +7,6 @@ namespace BibliotecaDaSetimaArte.Repository.Interfaces
         IMovieRepository MovieRepository { get; }
         ICategoryRepository CategoryRepository { get; }
 
-        void commit();
+        Task commit();
     }
 }

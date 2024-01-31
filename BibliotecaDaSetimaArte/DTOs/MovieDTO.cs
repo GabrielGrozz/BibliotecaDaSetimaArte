@@ -1,4 +1,6 @@
-﻿namespace BibliotecaDaSetimaArte.DTOs
+﻿using BibliotecaDaSetimaArte.Models;
+
+namespace BibliotecaDaSetimaArte.DTOs
 {
     public class MovieDTO
     {
@@ -11,5 +13,8 @@
         public int? ReleaseDate { get; set; }
 
         public string? ImageURL { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
     }
 }

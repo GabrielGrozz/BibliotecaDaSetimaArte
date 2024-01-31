@@ -3,6 +3,7 @@ using BibliotecaDaSetimaArte.Context;
 using BibliotecaDaSetimaArte.DTOs;
 using BibliotecaDaSetimaArte.Filters;
 using BibliotecaDaSetimaArte.Models;
+using BibliotecaDaSetimaArte.Pagination;
 using BibliotecaDaSetimaArte.Repository.Interfaces;
 using BibliotecaDaSetimaArte.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,18 +26,18 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         [HttpGet("year/{date:int}")]
-        public ActionResult<IEnumerable<MovieDTO>> GetByYear(int date)
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetByYear(int date)
         {
-            var movies = _uof.MovieRepository.GetByYear(date).ToList();
+            var movies = await _uof.MovieRepository.GetByYear(date);
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
             return moviesDTO;            
         }
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLogginFilter))]
-        public ActionResult<IEnumerable<MovieDTO>> Get([FromQuery])
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> Get([FromQuery] MoviesParameters moviesParameters)
         {
-            var movies = _uof.MovieRepository.Get().ToList();
+            var movies = await _uof.MovieRepository.GetMovies(moviesParameters) ;
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
 
             if (moviesDTO is null)
@@ -64,9 +65,9 @@ namespace BibliotecaDaSetimaArte.Controllers
         //}
 
         [HttpGet("{id:int}", Name = "GetMovie")]
-        public ActionResult<MovieDTO> Get(int id)
+        public async Task<ActionResult<MovieDTO>> Get(int id)
         {
-            var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
+            var movie = await _uof.MovieRepository.Get().FirstOrDefaultAsync(e => e.MovieId == id);
             var movieDTO = _mapper.Map<MovieDTO>(movie);
 
             if (movieDTO is null)
@@ -78,21 +79,21 @@ namespace BibliotecaDaSetimaArte.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] MovieDTO movieData)
+        public async Task<ActionResult> Post(MovieDTO movieData)
         {
 
             var movie = _mapper.Map<Movie>(movieData);
 
             _uof.MovieRepository.Add(movie);
-            _uof.commit();
+            await _uof.commit();
 
-            var movieDTO = _mapper.Map<Movie>(movieData);
+            var movieDTO = _mapper.Map<MovieDTO>(movie);
 
             return new CreatedAtRouteResult("GetMovie", new { id = movieData.MovieId }, movieDTO);
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult Put(int id, MovieDTO movieData) 
+        public async Task<ActionResult> Put(int id, MovieDTO movieData) 
         {
 
             if (id != movieData.MovieId)
@@ -103,13 +104,13 @@ namespace BibliotecaDaSetimaArte.Controllers
             var movie = _mapper.Map<Movie>(movieData);
 
             _uof.MovieRepository.Update(movie);
-            _uof.commit();
+            await _uof.commit();
 
             return Ok(); 
         }
 
-        [HttpDelete("{id:int}")]
-        public ActionResult<MovieDTO> Delete(int id)
+        [HttpDelete("{id:int}")] 
+        public async Task<ActionResult<MovieDTO>> Delete(int id)
         {
             var movie = _uof.MovieRepository.Get().FirstOrDefault(e => e.MovieId == id);
 
@@ -119,7 +120,7 @@ namespace BibliotecaDaSetimaArte.Controllers
             }
 
             _uof.MovieRepository.Delete(movie);
-            _uof.commit();
+            await _uof.commit();
 
             var movieDTO = _mapper.Map<MovieDTO>(movie);
 

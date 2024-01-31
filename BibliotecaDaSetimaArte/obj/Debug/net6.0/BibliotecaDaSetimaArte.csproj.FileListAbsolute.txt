@@ -85,3 +85,5 @@ D:\dev\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\obj\Debug\net6.0\refint\Bib
 D:\dev\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\obj\Debug\net6.0\BibliotecaDaSetimaArte.pdb
 D:\dev\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\obj\Debug\net6.0\BibliotecaDaSetimaArte.genruntimeconfig.cache
 D:\dev\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\obj\Debug\net6.0\ref\BibliotecaDaSetimaArte.dll
+C:\Users\Usuário\source\repos\2024\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Usuário\source\repos\2024\BibliotecaDaSetimaArte\BibliotecaDaSetimaArte\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

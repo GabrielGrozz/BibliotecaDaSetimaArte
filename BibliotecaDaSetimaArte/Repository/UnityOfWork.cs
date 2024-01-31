@@ -30,9 +30,9 @@ namespace BibliotecaDaSetimaArte.Repository
             }
         }
 
-        public void commit()
+        public async Task commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

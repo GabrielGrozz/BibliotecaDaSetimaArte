@@ -6,7 +6,7 @@ namespace BibliotecaDaSetimaArte.Repository.Interfaces
     {
         IQueryable<T> Get();
 
-        T GetbyId(Expression<Func<T, bool>> predicate);
+        Task<T> GetbyId(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entitty);

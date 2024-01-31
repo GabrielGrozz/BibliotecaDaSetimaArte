@@ -17,9 +17,9 @@ namespace BibliotecaDaSetimaArte.Repository
         {
             return _context.Set<T>().AsNoTracking();
         }
-        public T GetbyId(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetbyId(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().SingleOrDefault(predicate);
+            return await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
 
         public void Add(T entity)

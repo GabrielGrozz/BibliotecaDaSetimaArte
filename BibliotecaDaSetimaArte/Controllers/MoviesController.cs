@@ -34,7 +34,7 @@ namespace BibliotecaDaSetimaArte.Controllers
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLogginFilter))]
-        public ActionResult<IEnumerable<MovieDTO>> Get()
+        public ActionResult<IEnumerable<MovieDTO>> Get([FromQuery])
         {
             var movies = _uof.MovieRepository.Get().ToList();
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
